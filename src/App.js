@@ -140,6 +140,7 @@ class App extends React.Component {
     this.changeRows = this.changeRows.bind(this);
     this.ChangeColumns = this.ChangeColumns.bind(this);
     this.generateInput = this.generateInput.bind(this);
+    this.getAngleValues = this.getAngleValues.bind(this);
   }
 
   handleDistanceChange (event) {
@@ -224,55 +225,19 @@ class App extends React.Component {
   }
 
   getCount (value1, value2) {
-		const distance = parseInt(this.state.distanceInput);
-		const direction = parseInt(this.state.directionInput);
     let count = 0;
     let matchedSquares = []
 
-		let i;
-		let j;
-		let nextRow;
-		let nextColumn;
-		let rowLimit;
-    let columnLimit;
+    const values = this.getAngleValues(); 
+
+		let i = values.i;
+		const j = values.j;
+		const nextRow = values.nextRow;
+		const nextColumn = values.nextColumn;
+		const rowLimit = values.rowLimit;
+    const columnLimit = values.columnLimit;
     
-    switch (direction) {
-      case 0:
-        i = 0;
-			  j = 0;
-			  nextRow = 0;
-			  nextColumn = distance;
-			  rowLimit = 0;
-			  columnLimit = distance;
-        break;
-          
-      case 45:
-        i = distance;
-			  j = 0;
-			  nextRow = - distance;
-			  nextColumn = + distance;
-			  rowLimit = 0;
-			  columnLimit = distance;
-        break;
-
-      case 90:
-        i = distance;
-        j = 0;
-        nextRow = - distance;
-        nextColumn = 0;
-        rowLimit = 0;
-        columnLimit = 0;
-        break;
-
-      case 135:
-        i = distance;
-			  j = distance;
-			  nextRow = - distance;
-			  nextColumn = - distance;
-			  rowLimit = 0;
-			  columnLimit = 0;
-        break;  
-    }
+    
 
 		for (i; i < this.state.inputMatrix.length - rowLimit; i++) {
 			for (let k = j; k < this.state.inputMatrix[i].length - columnLimit; k++) {
@@ -297,7 +262,48 @@ class App extends React.Component {
       count: count,
       matchedSquares: matchedSquares
     };
-	}
+  }
+  
+  getAngleValues () {
+    const distance = parseInt(this.state.distanceInput);
+    const direction = this.state.directionInput.toString();
+    
+    const angleValues = {
+      0: {
+        i: 0,
+        j: 0,
+        nextRow: 0,
+        nextColumn: distance,
+        rowLimit: 0,
+        columnLimit: distance
+      },
+      45: {
+        i: distance,
+        j: 0,
+        nextRow: - distance,
+        nextColumn: + distance,
+        rowLimit: 0,
+        columnLimit: distance
+      },
+      90: {
+        i: distance,
+        j: 0,
+        nextRow: - distance,
+        nextColumn: 0,
+        rowLimit: 0,
+        columnLimit: 0
+      },
+      135: {
+        i: distance,
+        j: distance,
+        nextRow: - distance,
+        nextColumn: - distance,
+        rowLimit: 0,
+        columnLimit: 0
+      }
+    }
+    return angleValues[direction];
+  }
 
   render () {
     const calculations = this.getOutputMatrix();
