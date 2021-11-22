@@ -4,9 +4,9 @@ import './App.css';
 
 const inputMatrix = [];
 
-for (let i = 0; i <= 5; i++) {
+for (let i = 0; i < 5; i++) {
   const row = []
-  for (let j = 0; j <= 6; j++) {
+  for (let j = 0; j < 6; j++) {
     const max = 8;
     const number = Math.floor(Math.random() * max + 1);
     row.push(number);
@@ -60,22 +60,6 @@ class OffsetInput extends React.Component {
   }
 }
 
-class InputSquare extends React.Component {
-  constructor (props) {
-    super (props);
-  }
-
-  render () {
-    const id = this.props.id;
-    const inputSquare = <span id={this.props.id} className="square">{this.props.value}</span>
-    const coloredSquare = <span id={this.props.id} className="square coloredSquare">{this.props.value}</span>
-
-    return (
-      this.props.colored ? coloredSquare: inputSquare 
-    );
-  }
-}
-
 class OutputSquare extends React.Component {
   constructor (props) {
     super (props);
@@ -96,6 +80,22 @@ class OutputSquare extends React.Component {
 
     return (
       isNull ? nullSquare : unclickable ? unclickableSquare : clicked ? clickedSquare : outputSquare 
+    );
+  }
+}
+
+class InputSquare extends React.Component {
+  constructor (props) {
+    super (props);
+  }
+
+  render () {
+    const id = this.props.id;
+    const inputSquare = <span id={this.props.id} className="square">{this.props.value}</span>
+    const coloredSquare = <span id={this.props.id} className="square coloredSquare">{this.props.value}</span>
+
+    return (
+      this.props.colored ? coloredSquare: inputSquare 
     );
   }
 }
@@ -132,27 +132,15 @@ class App extends React.Component {
         inputMatrix: inputMatrix
      }
 
+    this.changeRows = this.changeRows.bind(this); 
     this.handleDistanceChange = this.handleDistanceChange.bind(this);
     this.handleDirectionChange = this.handleDirectionChange.bind(this);
+    this.generateInput = this.generateInput.bind(this);
+    this.getOffsetValues = this.getOffsetValues.bind(this);
+    this.getCount = this.getCount.bind(this);
+    this.ChangeColumns = this.ChangeColumns.bind(this);
     this.handleOnClick = this.handleOnClick.bind(this);
     this.getOutputMatrix = this.getOutputMatrix.bind(this);
-    this.getCount = this.getCount.bind(this);
-    this.changeRows = this.changeRows.bind(this);
-    this.ChangeColumns = this.ChangeColumns.bind(this);
-    this.generateInput = this.generateInput.bind(this);
-    this.getAngleValues = this.getAngleValues.bind(this);
-  }
-
-  handleDistanceChange (event) {
-    this.setState({
-      distanceInput: event.target.value
-    });
-  }
-
-  handleDirectionChange (event) {
-    this.setState({
-      directionInput: event.target.value
-    });
   }
 
   changeRows (event) {
@@ -164,6 +152,18 @@ class App extends React.Component {
   ChangeColumns (event) {
     this.setState({
       columnsNum: event.target.value
+    });
+  }
+
+  handleDirectionChange (event) {
+    this.setState({
+      directionInput: event.target.value
+    });
+  }
+
+  handleDistanceChange (event) {
+    this.setState({
+      distanceInput: event.target.value
     });
   }
 
@@ -228,7 +228,7 @@ class App extends React.Component {
     let count = 0;
     let matchedSquares = []
 
-    const values = this.getAngleValues(); 
+    const values = this.getOffsetValues(); 
 
 		let i = values.i;
 		const j = values.j;
@@ -264,7 +264,7 @@ class App extends React.Component {
     };
   }
   
-  getAngleValues () {
+  getOffsetValues () {
     const distance = parseInt(this.state.distanceInput);
     const direction = this.state.directionInput.toString();
     

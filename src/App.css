@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lora:wght@400;600&display=swap');
 
+
+body {
+  background-color: #0A7F44;
+}
+
+.offsets, .dimensions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}
+
 .row {
   display: flex;
   justify-content: center;
@@ -13,6 +25,15 @@
   font-size: 18px;
 }
 
+select {
+  width: 50px;
+  margin: 20px;
+}
+
+.clickedSquare {
+  background-color: teal;
+}
+
 .inputs {
   display: flex;
   justify-content: space-evenly;
@@ -20,23 +41,14 @@
   
 }
 
-.offsets, .dimensions {
+.matrices {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 18px;
 }
 
 .outputSquare {
   padding: 10px;
-}
-
-.clickedSquare {
-  background-color: teal;
-}
-
-.coloredSquare {
-  background-color: teal;
 }
 
 .unclickableSquare {
@@ -46,33 +58,22 @@
   font-weight: bold;
 }
 
+.header {
+  text-align: center;
+  background-color: #206D46;
+  padding: 5px;
+  color: black;
+  font-family: abril fatface, sans-serif;
+ }
+
 .matrix {
   margin: 20px;
-}
-
-.matrices {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-body {
-  background-color: #0A7F44;
 }
 
 input {
   margin: 20px;
 }
 
-select {
-  width: 50px;
-  margin: 20px;
-}
-
-.header {
- text-align: center;
- background-color: #206D46;
- padding: 5px;
- color: black;
- font-family: abril fatface, sans-serif;
+.coloredSquare {
+  background-color: teal;
 }
